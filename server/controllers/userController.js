@@ -33,8 +33,8 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 6)
-        const user = await new User.create({email, password: hashPassword, role})
-        // await user.save()
+        const user = new User({email, password: hashPassword, role})
+        await user.save()
 
         const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role)
         return res.json({token})
@@ -42,7 +42,7 @@ class UserController {
 
     async login(req, res, next) {
         const {email, password} = req.body
-        const user = await User.findOne({where: {email}})
+        const user = await User.findOne({email})
         if (!user) {
             return next(ApiError.notFound('Пользователь не найден'))
         }
@@ -54,6 +54,33 @@ class UserController {
 
         const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role)
         return res.json({token})
+    }
+
+    async deleteUser(req, res, next) {
+        try {
+            const {email} = req.body;
+
+            // Проверяем, передан ли email
+            if (!email) {
+                return next(ApiError.badRequest('Требуется электронная почта'));
+            }
+
+            // Находим пользователя по email
+            const user = await User.findOne({ email });
+
+            // Проверяем, найден ли пользователь
+            if (!user) {
+                return next(ApiError.notFound('User не найден'));
+            }
+
+            // Удаляем пользователя
+            await User.deleteOne({ email });
+
+            // Возвращаем успешный ответ
+            return res.json({ message: 'User был удален' });
+        } catch (error) {
+            next(error);
+        }
     }
 
     async auth(req, res, next) {
