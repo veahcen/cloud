@@ -2,8 +2,10 @@ const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const config = require("config")
 const jwt = require('jsonwebtoken')
-const {check, validationResult} = require("express-validator")
+
 const User = require("../models/User")
+const fileService = require('../services/fileService')
+const File = require('../models/File')
 
 const generateJwtToken = (id, email, diskSpace, usedSpace, role) => {
     return jwt.sign(
@@ -15,17 +17,19 @@ const generateJwtToken = (id, email, diskSpace, usedSpace, role) => {
 
 class UserController {
     async registration(req, res, next) {
-        check('email', "Некоректный email").isEmail()
-        check('password', 'Пароль должен быть больше 3').isLength({min:3})
-
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            return next(ApiError.badRequest('Невалидный email или password меньше 3х символов'))
-        }
-
         const {email, password, role} = req.body
         if (!email || !password) {
             return next(ApiError.badRequest('Некорректный email или password'))
+        }
+
+        if (password.length < 3) {
+            return next(ApiError.badRequest('Короткий пароль'))
+        }
+
+        const emailRegex = /^\S+@\S+\.\S+$/;
+        if (!emailRegex.test(email)) {
+            // Если вводимое значение не является действительным адресом электронной почты
+            return next(ApiError.badRequest('Некорректный email'))
         }
 
         const candidate = await User.findOne({where: {email}})
@@ -35,7 +39,7 @@ class UserController {
         const hashPassword = await bcrypt.hash(password, 6)
         const user = new User({email, password: hashPassword, role})
         await user.save()
-
+        await fileService.createDir(new File({user:user.id, name: ''})) // создание папки с id пользователя
         const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role)
         return res.json({token})
     }
@@ -73,6 +77,17 @@ class UserController {
                 return next(ApiError.notFound('User не найден'));
             }
 
+            // Находим главную папку пользователя
+            const mainFolderPath = `${config.get('filePath')}\\${user._id}`
+
+            // Проверяем, найдена ли главная папка пользователя
+            if (!mainFolderPath) {
+                return next(ApiError.notFound('Главная папка пользователя не найдена'));
+            }
+
+            // Рекурсивно удаляем главную папку и все ее содержимое
+            await fileService.deleteFolderRecursive(mainFolderPath);
+
             // Удаляем пользователя
             await User.deleteOne({ email });
 
@@ -80,6 +95,15 @@ class UserController {
             return res.json({ message: 'User был удален' });
         } catch (error) {
             next(error);
+        }
+    }
+
+    async getAllUsers(req, res, next) {
+        try {
+            const users = await User.find({}, 'email'); // Получаем всех пользователей и выбираем только поле email
+            return res.json(users);
+        } catch (error) {
+            return next(error);
         }
     }
 
