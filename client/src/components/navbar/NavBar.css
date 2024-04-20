@@ -1,0 +1,51 @@
+.container {
+    width: 1140px;
+    height: inherit;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.button {
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: var(--font-size-title);
+    font-weight: var(--weight-text-title);
+    transition: color 0.6s;
+}
+
+.button:hover {
+    color: var(--hover-text);
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    background-color: var(--light-color);
+    width: 100%;
+}
+
+.navbar__logo {
+    margin-left: 4.5%;
+    margin-right: 16px;
+    max-width: 37px;
+}
+
+.navbar__header {
+    font-size: var(--font-size-title);
+    line-height: 23px;
+    margin-right: 59%;
+}
+
+.navbar__login {
+    margin-right: 20px;
+}
+
+.navbar__login a.active,
+.navbar__registration a.active {
+    color: var(--hover-text);
+}

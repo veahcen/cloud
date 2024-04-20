@@ -57,7 +57,7 @@ class FileController {
         }
     }
 
-    async uploadFile(req, res, next) {
+    async  uploadFile(req, res, next) {
         try {
             const file = req.files.file
 
@@ -87,9 +87,11 @@ class FileController {
             if (parent) {
                 filePath = parent.path + "\\" + file.name
             }
+
             const dbFile = new File({
                 name: file.name,
                 type,
+                accessLink: path,
                 size: file.size,
                 path: filePath,
                 parent: parent?._id,
@@ -99,7 +101,7 @@ class FileController {
             await dbFile.save()
             await user.save()
 
-            res.json(dbFile)
+            res.json({dbFile, usedSpace: user.usedSpace})
         } catch (e) {
             console.log(e)
             return next(ApiError.internal({message: 'Ошибка загрузки'}))
@@ -122,7 +124,7 @@ class FileController {
 
     async downloadFileByLink(req, res, next) {
         try {
-            const file = await File.findById(req.body.id);
+            const file = await File.findById({_id: req.query.id});
             if (!file) {
                 return next(ApiError.notFound('Файл не найден'));
             }
@@ -142,12 +144,17 @@ class FileController {
     async deleteFile(req, res, next) {
         try {
             const file = await File.findOne({_id: req.query.id, user: req.user.id})
+            const user = await User.findOne({_id: req.user.id})
             if (!file) {
                 return next(ApiError.badRequest({message: "Файл не найден"}))
             }
+
+            user.usedSpace = user.usedSpace - file.size
             fileService.deleteFile(file)
-            await file.remove()
-            return res.json({message: "Файл был удален"})
+            await File.deleteOne({_id: req.query.id});
+
+            await user.save()
+            return res.json({message: "Файл был удален", usedSpace: user.usedSpace})
         } catch (e) {
             console.log(e)
             return next(ApiError.badRequest({message: "Ошибка удаления файла"}))
@@ -172,6 +179,7 @@ class FileController {
         try {
             const file = req.files.file
             const user = await User.findById(req.user.id)
+            user.usedSpace = user.usedSpace + file.size
             const avatarName = Uuid.v4() + ".jpg"
             file.mv(config.get('staticPath') + "\\" + avatarName)
             user.avatar = avatarName
@@ -186,6 +194,7 @@ class FileController {
     async deleteAvatar(req, res, next) {
         try {
             const user = await User.findById(req.user.id)
+            user.usedSpace = user.usedSpace - user.avatar.size
             fs.unlinkSync(config.get('staticPath') + "\\" + user.avatar)
             user.avatar = null
             await user.save()

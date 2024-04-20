@@ -22,6 +22,12 @@ class UserController {
             return next(ApiError.badRequest('Некорректный email или password'))
         }
 
+        const users = await User.find({}, 'email');
+
+        if (users.length >= 7) {
+            return next(ApiError.forbidden('Количество пользователей в системе ограничено'))
+        }
+
         if (password.length < 3) {
             return next(ApiError.badRequest('Короткий пароль'))
         }
@@ -66,15 +72,15 @@ class UserController {
 
             // Проверяем, передан ли email
             if (!email) {
-                return next(ApiError.badRequest('Требуется электронная почта'));
+                return next(ApiError.badRequest('Требуется электронная почта'))
             }
 
             // Находим пользователя по email
-            const user = await User.findOne({ email });
+            const user = await User.findOne({ email })
 
             // Проверяем, найден ли пользователь
             if (!user) {
-                return next(ApiError.notFound('User не найден'));
+                return next(ApiError.notFound('User не найден'))
             }
 
             // Находим главную папку пользователя
@@ -82,17 +88,19 @@ class UserController {
 
             // Проверяем, найдена ли главная папка пользователя
             if (!mainFolderPath) {
-                return next(ApiError.notFound('Главная папка пользователя не найдена'));
+                return next(ApiError.notFound('Главная папка пользователя не найдена'))
             }
 
             // Рекурсивно удаляем главную папку и все ее содержимое
-            await fileService.deleteFolderRecursive(mainFolderPath);
+            await fileService.deleteFolderRecursive(mainFolderPath)
 
             // Удаляем пользователя
             await User.deleteOne({ email });
 
+            await File.deleteMany({ user: user._id })
+
             // Возвращаем успешный ответ
-            return res.json({ message: 'User был удален' });
+            return res.json({ message: 'User был удален' })
         } catch (error) {
             next(error);
         }

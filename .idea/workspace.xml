@@ -5,14 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad7a2599-f629-414f-b77d-223a907118b9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/fileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/fileController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/userRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/userRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/error/ApiError.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/error/ApiError.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/fileRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/fileRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/services/fileService.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/fileService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -26,20 +44,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\Program Files (x86)\\apps\\WebStorm\\ch-0\\221.6008.13\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files (x86)\\apps\\WebStorm\\ch-0\\221.6008.13\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nechaev\WebstormProjects\cloud\client\src\components" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -50,7 +75,22 @@
       <updated>1711540122885</updated>
       <workItem from="1711540124102" duration="7799000" />
       <workItem from="1711612839700" duration="10115000" />
-      <workItem from="1711703995473" duration="7242000" />
+      <workItem from="1711703995473" duration="11967000" />
+      <workItem from="1711794071439" duration="5373000" />
+      <workItem from="1711811449874" duration="1509000" />
+      <workItem from="1711829828230" duration="1728000" />
+      <workItem from="1711883419844" duration="20931000" />
+      <workItem from="1711917893843" duration="485000" />
+      <workItem from="1711953745195" duration="3566000" />
+      <workItem from="1711969844704" duration="1088000" />
+      <workItem from="1713357526218" duration="4546000" />
+      <workItem from="1713430144123" duration="14540000" />
+      <workItem from="1713518199680" duration="4556000" />
+      <workItem from="1713525493676" duration="8875000" />
+      <workItem from="1713539904839" duration="920000" />
+      <workItem from="1713541098413" duration="7344000" />
+      <workItem from="1713610330129" duration="10572000" />
+      <workItem from="1713628930343" duration="9846000" />
     </task>
     <servers />
   </component>

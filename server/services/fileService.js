@@ -44,6 +44,7 @@ class FileService {
                 }
             });
             fs.rmdirSync(path); // удаляем саму папку
+
         }
     }
 
