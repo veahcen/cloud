@@ -3,7 +3,7 @@
     --accent-font: 'Roboto-Regular';
     --weight-text: 400;
     --weight-text-title: 700;
-    --background-color: #DCDCDC;
+    --background-color: #F2EDEF;
     --light-color: #FFFFFF;
     --main-color: #249AD7;
     --font-size-main: 18px;
@@ -12,4 +12,5 @@
     --font-size-litle: 14px;
     --main-line-hight: 21px;
     --hover-text: rgb(84, 169, 235);
+    --uploader-color-text: #000000;
 }

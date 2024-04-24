@@ -1,0 +1,58 @@
+
+.uploader {
+    height: 300px;
+    width: 300px;
+    position: fixed;
+    background-color: var(--light-color);
+    bottom: 0;
+    right: 0;
+    padding: 22px;
+    border-radius: 12px;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--main-color);
+}
+
+
+.uploader__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.uploader__title {
+    color: var(--uploader-color-text);
+    font-size: 22px;
+}
+
+.uploader__close {
+    padding-top: 2px;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    text-align: center;
+    border: 2px solid var(--light-color);
+    transition: border 0.3s;
+}
+
+.uploader__close:focus {
+    outline: none;
+}
+
+.uploader__close:focus-visible {
+    outline: 2px solid var(--main-color);
+}
+
+.uploader__close:hover {
+    border: 2px solid var(--main-color);
+}

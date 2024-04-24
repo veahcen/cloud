@@ -24,15 +24,6 @@ class FileService {
         })
     }
 
-    deleteFile(file) {
-        const path = this.getPath(file)
-        if (file.type === 'dir') {
-            deleteFolderRecursive(path)
-        } else {
-            fs.unlinkSync(path)
-        }
-    }
-
     deleteFolderRecursive(path) {
         if (fs.existsSync(path)) {
             fs.readdirSync(path).forEach((file) => {
@@ -45,6 +36,15 @@ class FileService {
             });
             fs.rmdirSync(path); // удаляем саму папку
 
+        }
+    }
+
+    deleteFile(file) {
+        const path = this.getPath(file)
+        if (file.type === 'dir') {
+            this.deleteFolderRecursive(path)
+        } else {
+            fs.unlinkSync(path)
         }
     }
 

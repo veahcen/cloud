@@ -1,61 +1,60 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from "mobx";
 
 export default class FileStore {
-    files = []
-    currentDir = null // текущая директория, id папки, в которой находимся в данный момент
-    popupDisplay = 'none'
-    dirStack = []
-    view = 'list'
-
     constructor() {
+        this._files = []
+        this._currentDir = null // текущая директория, id папки, в которой находимся в данный момент
+        this._popupDisplay = 'none'
+        this._dirStack = []
+        this._view = 'list'
         makeAutoObservable(this)
     }
 
     setFiles(files) {
-        this.files = files
+        this._files = files
     }
 
     setCurrentDir(dir) {
-        this.currentDir = dir
+        this._currentDir = dir
     }
 
     addFile(file) {
-        this.files.push(file)
+        this._files.push(file)
     }
 
     setPopupDisplay(display) {
-        this.popupDisplay = display
+        this._popupDisplay = display
     }
 
     pushToStack(dir) {
-        this.dirStack.push(dir)
+        this._dirStack.push(dir)
     }
 
-    deleteFile(dirId) {
-        this.files = this.files.filter(file => file._id !== dirId)
+    deleteFileAct(dirId) {
+        this._files = this._files.filter(file => file._id !== dirId)
     }
 
     setFileView(view) {
-        this.view = view
+        this._view = view
     }
 
     get getFiles() {
-        return this.files;
+        return this._files;
     }
 
     get getCurrentDir() {
-        return this.currentDir;
+        return this._currentDir;
     }
 
     get getPopupDisplay() {
-        return this.popupDisplay;
+        return this._popupDisplay;
     }
 
     get getDirStack() {
-        return this.dirStack;
+        return this._dirStack;
     }
 
     get getView() {
-        return this.view;
+        return this._view;
     }
 }

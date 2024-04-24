@@ -75,7 +75,7 @@ input:focus-visible {
 .form__input-error {
     position: absolute;
     left: 0;
-    top: calc(35% + 6px);
+    top: calc(56% + 6px);
     opacity: 1;
     color: #FF0000;
     font-size: 12px;

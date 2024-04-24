@@ -5,7 +5,80 @@ const User = require('../models/User')
 const File = require('../models/File')
 const ApiError = require("../error/ApiError");
 const Uuid = require('uuid')
+const archiver = require('archiver')
 
+// async function downloadFolder(folderId, parentPath) {
+//     const folder = await File.findById(folderId);
+//     const folderPath = fileService.getPath(folder) + 'a';
+//     // Создаем папку на сервере для скачиваемой папки
+//     fs.mkdirSync(folderPath);
+//
+//     // Получаем все файлы в папке
+//     const files = await File.find({ parent: folder._id });
+//     // Скачиваем каждый файл
+//     for (const file of files) {
+//         const filePath = path.join(folderPath, file.name);
+//         // Скачиваем файл
+//         fs.writeFileSync(filePath, file.data);
+//     }
+//
+//     // Рекурсивно обрабатываем вложенные папки
+//     const subFolders = await File.find({ parent: folder._id });
+//     for (const subFolder of subFolders) {
+//         await downloadFolder(subFolder._id, folderPath);
+//     }
+//
+//     return folderPath; // Возвращаем путь к скачанной папке
+// }
+
+async function deleteChildren(parentId) {
+    // Находим все дочерние элементы у файла с указанным parentId
+    const children = await File.find({ parent: parentId });
+
+    // Перебираем каждый дочерний элемент
+    for (const child of children) {
+        // Если у дочернего элемента есть дочерние элементы, рекурсивно удаляем их
+        if (child.type === 'dir') {
+            await deleteChildren(child._id);
+        }
+        // Удаляем сам дочерний элемент из базы данных
+        await File.deleteOne({ _id: child._id });
+    }
+}
+
+async function deleteFileAndChildren(fileId) {
+    // Удаляем дочерние элементы файла из базы данных
+    await deleteChildren(fileId);
+
+    // Удаляем сам файл из базы данных
+    await File.deleteOne({ _id: fileId });
+}
+
+async function updateParentFolderSize(parentId, fileSize) {
+    let parentFolder = await File.findById(parentId);
+    if (!parentFolder) return;
+
+    parentFolder.size += fileSize;
+    await parentFolder.save();
+
+    // Рекурсивно обновляем родительские папки
+    if (parentFolder.parent) {
+        await updateParentFolderSize(parentFolder.parent, fileSize);
+    }
+}
+
+async function updateDeleteParentFolderSize(parentId, fileSize) {
+    let parentFolder = await File.findById(parentId);
+    if (!parentFolder) return;
+
+    parentFolder.size -= fileSize;
+    await parentFolder.save();
+
+    // Рекурсивно обновляем родительские папки
+    if (parentFolder.parent) {
+        await updateDeleteParentFolderSize(parentFolder.parent, fileSize);
+    }
+}
 
 class FileController {
     async createDir(req, res) {
@@ -50,7 +123,7 @@ class FileController {
                     files = await File.find({user: req.user.id, parent: req.query.parent})
                     break;
             }
-            return res.json({files})
+            return res.json(files)
         } catch (e) {
             console.log(e)
             return next(ApiError.internal('Файлы не найдены'));
@@ -67,12 +140,13 @@ class FileController {
             if (user.usedSpace + file.size > user.diskSpace) {
                 return next(ApiError.badRequest({message: 'Нет места на диске'}))
             }
-
             user.usedSpace = user.usedSpace + file.size
 
             let path;
             if (parent) {
                 path = `${config.get('filePath')}\\${user._id}\\${parent.path}\\${file.name}`
+                await updateParentFolderSize(parent._id, file.size)
+                await parent.save()
             } else {
                 path = `${config.get('filePath')}\\${user._id}\\${file.name}`
             }
@@ -98,8 +172,8 @@ class FileController {
                 user: user._id
             });
 
-            await dbFile.save()
-            await user.save()
+
+            await Promise.all([dbFile.save(), user.save()])
 
             res.json({dbFile, usedSpace: user.usedSpace})
         } catch (e) {
@@ -121,6 +195,29 @@ class FileController {
             return next(ApiError.internal({message: "Ошибка загрузки"}))
         }
     }
+
+    // async downloadFile(req, res, next) {
+    //     try {
+    //         const file = await File.findOne({_id: req.query.id, user: req.user.id});
+    //         const path = fileService.getPath(file);
+    //         if (file.type === 'dir') {
+    //             const folderPath = await downloadFolder(file._id, '/tmp'); // Начинаем скачивание с /tmp
+    //             const archive = archiver('zip');
+    //             archive.directory(folderPath, 'downloaded_folder');
+    //             archive.pipe(res);
+    //             archive.finalize();
+    //         } else {
+    //             if (fs.existsSync(path)) {
+    //                 return res.download(path, file.name);
+    //             }
+    //         }
+    //         return next(ApiError.badRequest({message: "Ошибка загрузки"}));
+    //     } catch (e) {
+    //         console.log(e);
+    //         return next(ApiError.internal({message: "Ошибка загрузки"}));
+    //     }
+    // }
+
 
     async downloadFileByLink(req, res, next) {
         try {
@@ -144,14 +241,20 @@ class FileController {
     async deleteFile(req, res, next) {
         try {
             const file = await File.findOne({_id: req.query.id, user: req.user.id})
+            const parent = await File.findOne({user: req.user.id, _id: file.parent})
             const user = await User.findOne({_id: req.user.id})
             if (!file) {
                 return next(ApiError.badRequest({message: "Файл не найден"}))
             }
 
             user.usedSpace = user.usedSpace - file.size
+            if (parent) {
+                await updateDeleteParentFolderSize(parent._id, file.size)
+            }
             fileService.deleteFile(file)
-            await File.deleteOne({_id: req.query.id});
+
+            await deleteFileAndChildren(file._id);
+
 
             await user.save()
             return res.json({message: "Файл был удален", usedSpace: user.usedSpace})

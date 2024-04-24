@@ -5,18 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad7a2599-f629-414f-b77d-223a907118b9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/Authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/Authorization.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/authorization.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/authorization.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/Disk.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/Disk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/File/File.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/File/File.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/FileList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/FileList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/variables.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/variables.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/http/file.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/http/file.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/fileStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/fileStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/userStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/userStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/untils/consts.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/untils/consts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/fileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/fileController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/error/ApiError.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/error/ApiError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/fileRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/fileRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/services/fileService.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/fileService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +99,12 @@
       <workItem from="1713539904839" duration="920000" />
       <workItem from="1713541098413" duration="7344000" />
       <workItem from="1713610330129" duration="10572000" />
-      <workItem from="1713628930343" duration="9846000" />
+      <workItem from="1713628930343" duration="10107000" />
+      <workItem from="1713690903770" duration="849000" />
+      <workItem from="1713701601686" duration="17575000" />
+      <workItem from="1713780081498" duration="14253000" />
+      <workItem from="1713856839258" duration="30823000" />
+      <workItem from="1713949757130" duration="29196000" />
     </task>
     <servers />
   </component>

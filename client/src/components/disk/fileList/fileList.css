@@ -1,0 +1,38 @@
+
+.file-list {
+    margin: 20px 0;
+}
+
+.file-list__header {
+    display: grid;
+    grid-template-columns: 1fr 4fr repeat(5, 1fr);
+}
+
+.file-list-name {
+    grid-column-start: 2;
+}
+
+.file-list-date {
+    grid-column-start: 6;
+    justify-self: center;
+}
+
+.file-list-size {
+    grid-column-start: 7;
+    justify-self: center;
+}
+
+.file {
+    animation: file-enter 500ms forwards;
+}
+
+@keyframes file-enter {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
