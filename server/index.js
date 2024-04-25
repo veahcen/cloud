@@ -5,15 +5,17 @@ const config = require("config")
 const fileUpload = require("express-fileupload") // для работы с файлами
 const errorHandler = require("./middleware/ErrorHendMiddleware")
 const corsMiddleware = require("./middleware/corsMiddleware")
+const cors = require('cors');
 
 const app = express()
 const PORT = config.get('serverPort') // получаем порт
 
+app.use(cors())
+app.use(corsMiddleware)
 app.use(fileUpload({
     defCharset: 'utf8',
     defParamCharset: 'utf8'
 }))
-app.use(corsMiddleware)
 app.use(express.json())
 app.use(express.static('static'))
 app.use('/api', router)

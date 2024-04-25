@@ -36,3 +36,16 @@
         transform: translateY(0);
     }
 }
+
+.loader-file-not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 130px);
+}
+
+.file-plate-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 30px 0 20px 4%;
+}

@@ -48,8 +48,9 @@
 }
 
 .upload-file__percent {
+    position: absolute;
     font-size: 15px;
     color: var(--light-color);
     left: 50%;
-    position: absolute;
+    transform: translateX(-50%);
 }

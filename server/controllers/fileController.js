@@ -6,6 +6,7 @@ const File = require('../models/File')
 const ApiError = require("../error/ApiError");
 const Uuid = require('uuid')
 const archiver = require('archiver')
+const jwt = require('jsonwebtoken')
 
 // async function downloadFolder(folderId, parentPath) {
 //     const folder = await File.findById(folderId);
@@ -78,6 +79,14 @@ async function updateDeleteParentFolderSize(parentId, fileSize) {
     if (parentFolder.parent) {
         await updateDeleteParentFolderSize(parentFolder.parent, fileSize);
     }
+}
+
+const generateJwtToken = (id, email, diskSpace, usedSpace, role, avatar) => {
+    return jwt.sign(
+        {id, email, diskSpace, usedSpace, role, avatar},
+        config.get("secretKey"),
+        {expiresIn: '12h'}
+    )
 }
 
 class FileController {
@@ -281,13 +290,18 @@ class FileController {
     async uploadAvatar(req, res, next) {
         try {
             const file = req.files.file
+            console.log(file.name.split('.').pop())
             const user = await User.findById(req.user.id)
+            console.log('при загрузке размер файла' + file.size)
             user.usedSpace = user.usedSpace + file.size
+            console.log('при загрузке ' + user.usedSpace)
             const avatarName = Uuid.v4() + ".jpg"
             file.mv(config.get('staticPath') + "\\" + avatarName)
             user.avatar = avatarName
             await user.save()
-            return res.json(user)
+            const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar)
+            return res.json({token})
+
         } catch (e) {
             console.log(e)
             return next(ApiError.badRequest({message: "Ошибка загрузки аватарки"}))
@@ -297,11 +311,20 @@ class FileController {
     async deleteAvatar(req, res, next) {
         try {
             const user = await User.findById(req.user.id)
-            user.usedSpace = user.usedSpace - user.avatar.size
-            fs.unlinkSync(config.get('staticPath') + "\\" + user.avatar)
+            const avatarPath = config.get('staticPath') + "\\" + user.avatar
+
+            const stats = await fs.promises.stat(avatarPath)
+            const sizeInBytes = stats.size
+
+            console.log('при удалении размер файла' + sizeInBytes)
+            user.usedSpace = user.usedSpace - sizeInBytes
+            console.log('при удалении ' + user.usedSpace)
+            await fs.promises.unlink(avatarPath)
+
             user.avatar = null
             await user.save()
-            return res.json(user)
+            const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar)
+            return res.json({token})
         } catch (e) {
             console.log(e)
             return next(ApiError.badRequest({message: "Ошибка удаления аватарки"}))

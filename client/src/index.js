@@ -4,6 +4,7 @@ import App from './components/App';
 import userStore from './store/userStore'
 import fileStore from "./store/fileStore";
 import uploaderStore from "./store/uploaderStore";
+import loaderStore from "./store/loaderStore";
 
 export const Context = createContext(null)
 
@@ -13,6 +14,7 @@ root.render(
         user: new userStore(),
         file: new fileStore(),
         upload: new uploaderStore(),
+        loader: new loaderStore(),
     }}>
         <App />
     </Context.Provider>

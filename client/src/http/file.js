@@ -61,3 +61,8 @@ export const deleteFile = async (file) => {
     const {data} = await $authHost.delete(`api/files?id=${file._id}`)
     return data
 }
+
+export const searchFile = async (search) => {
+    const {data} = await $authHost.get(`api/files/search?search=${search}`)
+    return data
+}

@@ -39,22 +39,22 @@ export default class FileStore {
     }
 
     get getFiles() {
-        return this._files;
+        return this._files
     }
 
     get getCurrentDir() {
-        return this._currentDir;
+        return this._currentDir
     }
 
     get getPopupDisplay() {
-        return this._popupDisplay;
+        return this._popupDisplay
     }
 
     get getDirStack() {
-        return this._dirStack;
+        return this._dirStack
     }
 
     get getView() {
-        return this._view;
+        return this._view
     }
 }

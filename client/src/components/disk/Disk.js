@@ -9,16 +9,18 @@ import Uploader from "./uploader/Uploader";
 
 const Disk = observer (() => {
 
-    const {file, upload} = useContext(Context)
+    const {file, upload, loader} = useContext(Context)
     const dirStack = file.getDirStack
     const [dragEnter, setDragEnter] = useState(false)
     const [sort, setSort] = useState('type')
 
     useEffect(() => {
+        loader.showLoader()
         getFiles(file.getCurrentDir, sort).then(data => {
             file.setFiles(data)
         })
-    }, [file, file.getCurrentDir, sort])
+        loader.hideLoader()
+    }, [loader, file, file.getCurrentDir, sort])
 
 
 
@@ -31,9 +33,7 @@ const Disk = observer (() => {
         file.setCurrentDir(backDirId)
     }
 
-    function fileUploadHandler(e) {
-        const files = [...e.target.files]
-        upload.showUploader()
+    function uploadFilesOnServer (files) {
         files.forEach((item, index) => {
             setTimeout(() => {
                 const uploaderFile = {id: Math.random().toString(36).substr(2, 9), name: item.name, progress: 0}
@@ -46,8 +46,15 @@ const Disk = observer (() => {
                     file.addFile(r.dbFile)
                     console.log(r)
                 })
-            }, index * 1000) // Умножаем на индекс, чтобы каждый файл отправлялся с задержкой
+            }, index * 500) // Умножаем на индекс, чтобы каждый файл отправлялся с задержкой
         })
+    }
+
+    function fileUploadHandler(e) {
+        const files = [...e.target.files]
+        console.log(files)
+        upload.showUploader()
+        uploadFilesOnServer(files)
     }
 
     const dragEnterHandler = (e) => {
@@ -67,21 +74,21 @@ const Disk = observer (() => {
         e.stopPropagation()
         upload.showUploader()
         const files = [...e.dataTransfer.files]
-        files.forEach((item, index) => {
-            setTimeout(() => {
-                const uploaderFile = {id: Math.random().toString(36).substr(2, 9), name: item.name, progress: 0}
-                upload.addUploadFile(uploaderFile)
-                console.log(item)
-                uploadFile(item, file.getCurrentDir, (progress) => {
-                    uploaderFile.progress = progress
-                    upload.changeUploadFile(uploaderFile)
-                }).then(r => {
-                    file.addFile(r.dbFile)
-                    console.log(r)
-                })
-            }, index * 1000) // Умножаем на индекс, чтобы каждый файл отправлялся с задержкой
-        })
+        uploadFilesOnServer(files)
         setDragEnter(false)
+    }
+
+    if (loader.boolLoader) {
+        return (
+            <div className="loader">
+                <div className="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        )
     }
 
     return ( dragEnter ?
@@ -114,8 +121,9 @@ const Disk = observer (() => {
                         <option value="type">По типу</option>
                         <option value="date">По дате</option>
                     </select>
-                    {/*<button className="disk__plate"></button>*/}
-                    {/*<button className="disk__list"></button>*/}
+                    <button className="disk__plate-big" onClick={() => file.setFileView('plateBig')}/>
+                    <button className="disk__plate" onClick={() => file.setFileView('plate')}/>
+                    <button className="disk__list" onClick={() => file.setFileView('list')}/>
                 </div>
 
                 <FileList />

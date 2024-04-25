@@ -1,38 +1,49 @@
-import React, {useContext, useEffect, useState} from "react"
+import React, {useContext, useEffect} from "react"
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import "./mainstyle.css"
 import NavBar from "./navbar/NavBar"
 import "./app.css"
 import Registration from "./authorization/Registration"
-import {REGISTRATION_ROUTE, LOGIN_ROUTE, DISK_ROUTE} from "../untils/consts"
+import {REGISTRATION_ROUTE, LOGIN_ROUTE, DISK_ROUTE, PROFILE_ROUTE} from "../untils/consts"
 import Authorization from "./authorization/Authorization"
 import {Context} from "../index"
 import {observer} from "mobx-react-lite"
 import {check} from "../http/user"
 import Disk from "./disk/Disk";
+import Profile from "./disk/profile/Profile";
 
 
 const App = observer(() => {
-    const {user} = useContext(Context)
-    const [loading, setLoading] = useState(true)
+    const {user, loader} = useContext(Context)
 
     useEffect(() => {
         const token = localStorage.getItem("token")
         if (token) {
             check()
                 .then((data) => {
+                    console.log(data)
                     user.setUser(data)
                     user.setIsAuth(true)
                     user.setIsRole(data.role)
+                    user.setAvatar(data.avatar)
                 })
-                .finally(() => setLoading(false))
+                .finally(() => loader.hideLoader())
         } else {
-            setLoading(false)
+            loader.hideLoader()
         }
-    }, [user]);
+    }, [loader, user]);
 
-    if (loading) {
-        return <div>Loading...</div>
+    if (loader.boolLoader) {
+        return (
+            <div className="loader">
+                <div className="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        )
     }
 
     return (
@@ -52,6 +63,7 @@ const App = observer(() => {
                       :
                       <Routes>
                           <Route path={DISK_ROUTE}  element={<Disk />}  />
+                          <Route path={PROFILE_ROUTE}  element={<Profile />}  />
                           <Route
                              path="*"
                               element={<Disk />}

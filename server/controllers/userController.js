@@ -7,9 +7,9 @@ const User = require("../models/User")
 const fileService = require('../services/fileService')
 const File = require('../models/File')
 
-const generateJwtToken = (id, email, diskSpace, usedSpace, role) => {
+const generateJwtToken = (id, email, diskSpace, usedSpace, role, avatar) => {
     return jwt.sign(
-        {id, email, diskSpace, usedSpace, role},
+        {id, email, diskSpace, usedSpace, role, avatar},
         config.get("secretKey"),
         {expiresIn: '12h'}
     )
@@ -42,11 +42,12 @@ class UserController {
         if (candidate) {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
+        const avatar = null
         const hashPassword = await bcrypt.hash(password, 6)
-        const user = new User({email, password: hashPassword, role})
+        const user = new User({email, password: hashPassword, role, avatar})
         await user.save()
         await fileService.createDir(new File({user:user.id, name: ''})) // создание папки с id пользователя
-        const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role)
+        const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar)
         return res.json({token})
     }
 
@@ -62,7 +63,7 @@ class UserController {
             return next(ApiError.badRequest('Пароль не верный'))
         }
 
-        const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role)
+        const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar)
         return res.json({token})
     }
 
@@ -116,7 +117,7 @@ class UserController {
     }
 
     async auth(req, res, next) {
-        const token = generateJwtToken(req.user.id, req.user.email, req.user.diskSpace, req.user.usedSpace, req.user.role)
+        const token = generateJwtToken(req.user.id, req.user.email, req.user.diskSpace, req.user.usedSpace, req.user.role, req.user.avatar)
         return res.json({token})
     }
 }
