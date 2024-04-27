@@ -9,7 +9,7 @@ import {deleteFile, downloadFile} from "../../../../http/file";
 import sizeFormat from "../../../../untils/sizeFormat";
 
 const File = observer(({filez}) => {
-    const {file} = useContext(Context)
+    const {file, user} = useContext(Context)
     const currentDir = file.getCurrentDir
 
     const openDirHandler = () => {
@@ -28,6 +28,7 @@ const File = observer(({filez}) => {
         e.stopPropagation()
         file.deleteFileAct(filez._id)
         deleteFile(filez).then(r => {
+            user.setSpace(r.usedSpace)
             console.log(r)
         })
 

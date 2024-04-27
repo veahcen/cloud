@@ -4,11 +4,6 @@
     margin-top: 20px;
 }
 
-.disk__create {
-    margin-left: 10px;
-}
-
-
 .popup {
     position: absolute;
     display: flex;
@@ -110,26 +105,31 @@ input:focus-visible {
 .popup__form-label {
     position: relative;
 }
+.disk__buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 160px) 1fr;
+    grid-template-rows: 35px 35px;
+    gap: 17px 40px;
+}
 
 .disk__upload {
-    display: inline-block;
-    margin-left: 10px;
     border: 1px solid var(--main-color);
     border-radius: 14px;
-    padding: 9px 27px;
+    padding: 7px 19px;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: all 0.3s;
 }
 
 .disk__upload-load {
     cursor: pointer;
     font-size: 16px;
     line-height: 16px;
-    transition: color 0.2s;
+    transition: all 0.3s;
 }
 
-.disk__upload:hover, .disk__upload-load:hover {
-    color: var(--hover-text);
+.disk__upload:hover {
+    background-color: var(--main-color);
+    color: var(--light-color);
 }
 
 .disk__upload-input {
@@ -164,10 +164,37 @@ input:focus-visible {
 
 .disk__plate {
     background-image: url("../../assets/plate.svg");
+    transition: background-image 0.3s;
 }
 
 .disk__plate-big {
     background-image: url("../../assets/platteBig.svg");
+    transition: background-image 0.3s;
+}
+
+.disk__list:hover {
+    background-image: url("../../assets/lishHover.svg");
+    transition: background-image 0.3s;
+}
+
+.disk__plate:hover {
+    background-image: url("../../assets/plateHover.svg");
+}
+
+.disk__plate-big:hover {
+    background-image: url("../../assets/platteBigHover.svg");
+}
+
+.active-list {
+    background-image: url("../../assets/lishHover.svg");
+}
+
+.active-plate {
+    background-image: url("../../assets/plateHover.svg");
+}
+
+.active-plate-big {
+    background-image: url("../../assets/platteBigHover.svg");
 }
 
 .loader {
@@ -217,3 +244,83 @@ input:focus-visible {
         transform: rotate(360deg);
     }
 }
+
+.disk__create {
+    width: 160px;
+    height: 34px;
+    border: 1px solid var(--main-color);
+    background-color: transparent;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.disk__create:hover {
+    background-color: var(--main-color);
+    color: var(--light-color);
+}
+
+.disk__back {
+    justify-self: flex-start;
+    cursor: pointer;
+    padding: 6px;
+    border: 1px solid var(--main-color);
+    background-color: transparent;
+    border-radius: 14px;
+    transition: all 0.3s;
+}
+
+.disk__back:hover {
+    background-color: var(--main-color);
+    color: var(--light-color);
+}
+
+.disk__space {
+    margin-left: 60px;
+    justify-self: flex-start;
+}
+
+.disk__space-bar {
+    display: flex;
+    margin: 0 auto;
+    width: 152px;
+    height: 17px;
+    border: 2px solid var(--main-color);
+    border-radius: 14px;
+}
+
+.disk__space-upload {
+    background-color: var(--main-color);
+    border-radius: 14px;
+}
+
+.disk__space-bar-info {
+    text-align: center;
+}
+
+.disk__select {
+    position: relative;
+    cursor: pointer;
+    margin: 10px;
+    background-color: var(--background-color);
+    border: none;
+    outline: none;
+    padding: 10px   ;
+    color: var(--main-color);
+    font-size: 15px;
+}
+
+
+
+.disc__sub-btns {
+    display: inline-block;
+}
+
+.disk__select-buttons {
+    justify-self: flex-end;
+    grid-column-start: 3;
+}
+
+/*.disk__select__option {*/
+/*    background-color: transparent;*/
+/*}*/

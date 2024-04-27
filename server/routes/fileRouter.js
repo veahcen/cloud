@@ -1,6 +1,7 @@
 const Router = require('express')
 const router = new Router()
 const authMiddleware = require('../middleware/authMiddleware')
+const checkRole = require('../middleware/chekRoleMiddleware')
 const fileController = require('../controllers/fileController')
 
 router.post('', authMiddleware, fileController.createDir)

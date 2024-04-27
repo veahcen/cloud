@@ -7,9 +7,9 @@ const User = require("../models/User")
 const fileService = require('../services/fileService')
 const File = require('../models/File')
 
-const generateJwtToken = (id, email, diskSpace, usedSpace, role, avatar) => {
+const generateJwtToken = (id, email, diskSpace, usedSpace, role, avatar, name, surname) => {
     return jwt.sign(
-        {id, email, diskSpace, usedSpace, role, avatar},
+        {id, email, diskSpace, usedSpace, role, avatar, name, surname},
         config.get("secretKey"),
         {expiresIn: '12h'}
     )
@@ -17,9 +17,13 @@ const generateJwtToken = (id, email, diskSpace, usedSpace, role, avatar) => {
 
 class UserController {
     async registration(req, res, next) {
-        const {email, password, role} = req.body
+        const {email, password, role, name, surname} = req.body
         if (!email || !password) {
             return next(ApiError.badRequest('Некорректный email или password'))
+        }
+
+        if (!name || !surname) {
+            return next(ApiError.badRequest('Введите имя и фамилию'))
         }
 
         const users = await User.find({}, 'email');
@@ -38,16 +42,16 @@ class UserController {
             return next(ApiError.badRequest('Некорректный email'))
         }
 
-        const candidate = await User.findOne({where: {email}})
+        const candidate = await User.findOne({email})
         if (candidate) {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
         const avatar = null
         const hashPassword = await bcrypt.hash(password, 6)
-        const user = new User({email, password: hashPassword, role, avatar})
+        const user = new User({email, password: hashPassword, role, avatar, name, surname})
         await user.save()
         await fileService.createDir(new File({user:user.id, name: ''})) // создание папки с id пользователя
-        const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar)
+        const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar, user.name, user.surname)
         return res.json({token})
     }
 
@@ -63,48 +67,40 @@ class UserController {
             return next(ApiError.badRequest('Пароль не верный'))
         }
 
-        const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar)
+        const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar, user.name, user.surname)
         return res.json({token})
     }
 
     async deleteUser(req, res, next) {
-        try {
-            const {email} = req.body;
+        const {email} = req.body;
 
-            // Проверяем, передан ли email
-            if (!email) {
-                return next(ApiError.badRequest('Требуется электронная почта'))
-            }
-
-            // Находим пользователя по email
-            const user = await User.findOne({ email })
-
-            // Проверяем, найден ли пользователь
-            if (!user) {
-                return next(ApiError.notFound('User не найден'))
-            }
-
-            // Находим главную папку пользователя
-            const mainFolderPath = `${config.get('filePath')}\\${user._id}`
-
-            // Проверяем, найдена ли главная папка пользователя
-            if (!mainFolderPath) {
-                return next(ApiError.notFound('Главная папка пользователя не найдена'))
-            }
-
-            // Рекурсивно удаляем главную папку и все ее содержимое
-            await fileService.deleteFolderRecursive(mainFolderPath)
-
-            // Удаляем пользователя
-            await User.deleteOne({ email });
-
-            await File.deleteMany({ user: user._id })
-
-            // Возвращаем успешный ответ
-            return res.json({ message: 'User был удален' })
-        } catch (error) {
-            next(error);
+        // Проверяем, передан ли email
+        if (!email) {
+            return next(ApiError.badRequest('Требуется электронная почта'))
         }
+
+        const user = await User.findOne({ email })
+
+        // Проверяем, найден ли пользователь
+        if (!user) {
+            return next(ApiError.notFound('User не найден'))
+        }
+
+        // Находим главную папку пользователя
+        const mainFolderPath = `${config.get('filePath')}\\${user._id}`
+
+        if (!mainFolderPath) {
+            return next(ApiError.notFound('Главная папка пользователя не найдена'))
+        }
+
+        // Рекурсивно удаляем главную папку и все ее содержимое
+        await fileService.deleteFolderRecursive(mainFolderPath)
+
+        await User.deleteOne({ email });
+
+        await File.deleteMany({ user: user._id })
+
+        return res.json({ message: 'User был удален' })
     }
 
     async getAllUsers(req, res, next) {
@@ -117,7 +113,7 @@ class UserController {
     }
 
     async auth(req, res, next) {
-        const token = generateJwtToken(req.user.id, req.user.email, req.user.diskSpace, req.user.usedSpace, req.user.role, req.user.avatar)
+        const token = generateJwtToken(req.user.id, req.user.email, req.user.diskSpace, req.user.usedSpace, req.user.role, req.user.avatar, req.user.name, req.user.surname)
         return res.json({token})
     }
 }

@@ -6,6 +6,7 @@ export default class UserStore {
         this._isAuth = false
         this._role = 'USER'
         this._avatar = null
+        this._useSpace = 0
         makeAutoObservable(this)
     }
 
@@ -25,6 +26,10 @@ export default class UserStore {
         this._avatar = avatar
     }
 
+    setSpace(space) {
+        this._useSpace = space
+    }
+
     get user() {
         return this._user
     }
@@ -39,6 +44,10 @@ export default class UserStore {
 
     get Avatar() {
         return this._avatar
+    }
+
+    get Space() {
+        return this._useSpace
     }
 
     logout() {

@@ -1,0 +1,76 @@
+
+
+.user-page {
+    margin-top: 30px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.user-page__avatar {
+    width: 350px;
+    height: 350px;
+}
+
+.user-page__delete-avatar {
+    border: 1px solid var(--main-color);
+    border-radius: 14px;
+    padding: 7px 19px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.user-page__delete-avatar:hover {
+    background-color: var(--main-color);
+    color: var(--light-color);
+}
+
+.user-page__upload {
+    display: none;
+}
+
+.user-page__uploader {
+    border: 1px solid var(--main-color);
+    border-radius: 14px;
+    padding: 7px 19px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.user-page__label {
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 16px;
+    transition: all 0.3s;
+}
+
+.user-page__uploader:hover {
+    background-color: var(--main-color);
+    color: var(--light-color);
+}
+
+.user-page__box-1 {
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-start;
+}
+
+.user-page__buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.user-page__box-2 {
+    grid-column-start: 2;
+    justify-self: center;
+}
+
+.user-page__box-2-text {
+    margin-top: 40px;
+}
+
+.disk__space-user {
+    margin-top: 20px;
+    margin-left: 0;
+}

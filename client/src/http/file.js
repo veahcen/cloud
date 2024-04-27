@@ -38,6 +38,7 @@ export const uploadFile = async (file, dirId, progressCallback) => {
             progressCallback(percent);
         }
     });
+    localStorage.setItem('token', data.token)
     return data;
 }
 
@@ -59,6 +60,7 @@ export async function downloadFile(file) {
 
 export const deleteFile = async (file) => {
     const {data} = await $authHost.delete(`api/files?id=${file._id}`)
+    localStorage.setItem('token', data.token)
     return data
 }
 

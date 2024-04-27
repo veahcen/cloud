@@ -24,13 +24,11 @@ const Authorization = observer(() => {
             user.setUser(data)
             user.setIsAuth(true)
             user.setIsRole(data.role)
+            user.Space(data.usedSpace)
             setLoad(true)
         } catch (e) {
             if (e.response?.data?.message) {
                 alert(e.response.data.message)
-                setLoad(true)
-            } else {
-                alert("Произошла ошибка при выполнении запроса, возможно отсутствует соединение с интернетом")
                 setLoad(true)
             }
         }
@@ -82,7 +80,7 @@ const Authorization = observer(() => {
     useEffect(() => {
         clearValidation();
     }, []);
-
+    console.log(password)
     return (
         <div className="authorization">
             <h1 className="authorization__title">Авторизация</h1>

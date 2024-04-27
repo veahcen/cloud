@@ -1,0 +1,71 @@
+
+.admin-panel {
+    margin-top: 40px;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.admin-panel__registration {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 537px;
+    background-color: var(--light-color);
+}
+
+.admin-panel__registration__header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-registration {
+    display: grid;
+}
+
+.registration__form-label {
+    position: relative;
+}
+
+.registration__btn {
+    justify-self: flex-end;
+}
+
+.admin-panel__delete {
+    margin-top: 40px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 537px;
+    background-color: var(--light-color);
+}
+
+.admin-panel__delete__header {
+    margin-bottom: 25px;
+    font-size: 29px;
+}
+
+.form-delete {
+    display: grid;
+    width: 100%;
+}
+
+.admin-panel__info {
+    margin-top: 40px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 537px;
+    background-color: var(--light-color);
+}
+
+.req__btn {
+
+}

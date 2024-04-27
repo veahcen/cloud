@@ -81,9 +81,9 @@ async function updateDeleteParentFolderSize(parentId, fileSize) {
     }
 }
 
-const generateJwtToken = (id, email, diskSpace, usedSpace, role, avatar) => {
+const generateJwtToken = (id, email, diskSpace, usedSpace, role, avatar, name, surname) => {
     return jwt.sign(
-        {id, email, diskSpace, usedSpace, role, avatar},
+        {id, email, diskSpace, usedSpace, role, avatar, name, surname},
         config.get("secretKey"),
         {expiresIn: '12h'}
     )
@@ -183,8 +183,8 @@ class FileController {
 
 
             await Promise.all([dbFile.save(), user.save()])
-
-            res.json({dbFile, usedSpace: user.usedSpace})
+            const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar, user.name, user.surname)
+            res.json({dbFile, usedSpace: user.usedSpace, token})
         } catch (e) {
             console.log(e)
             return next(ApiError.internal({message: 'Ошибка загрузки'}))
@@ -266,7 +266,8 @@ class FileController {
 
 
             await user.save()
-            return res.json({message: "Файл был удален", usedSpace: user.usedSpace})
+            const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar, user.name, user.surname)
+            return res.json({message: "Файл был удален", usedSpace: user.usedSpace, token})
         } catch (e) {
             console.log(e)
             return next(ApiError.badRequest({message: "Ошибка удаления файла"}))
@@ -292,6 +293,15 @@ class FileController {
             const file = req.files.file
             console.log(file.name.split('.').pop())
             const user = await User.findById(req.user.id)
+
+            if (user.avatar) {
+                return next(ApiError.badRequest('Аватарка уже установлена'))
+            }
+
+            if (file.name.split('.').pop() !== 'jpg' && file.name.split('.').pop() !== 'png') {
+                return next(ApiError.badRequest('Разрешено устанавливать только png и jpg аватарки'))
+            }
+
             console.log('при загрузке размер файла' + file.size)
             user.usedSpace = user.usedSpace + file.size
             console.log('при загрузке ' + user.usedSpace)
@@ -299,8 +309,8 @@ class FileController {
             file.mv(config.get('staticPath') + "\\" + avatarName)
             user.avatar = avatarName
             await user.save()
-            const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar)
-            return res.json({token})
+            const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar, user.name, user.surname)
+            return res.json({token, usedSpace: user.usedSpace})
 
         } catch (e) {
             console.log(e)
@@ -323,8 +333,8 @@ class FileController {
 
             user.avatar = null
             await user.save()
-            const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar)
-            return res.json({token})
+            const token = generateJwtToken(user.id, user.email, user.diskSpace, user.usedSpace, user.role, user.avatar, user.name, user.surname)
+            return res.json({token, usedSpace: user.usedSpace})
         } catch (e) {
             console.log(e)
             return next(ApiError.badRequest({message: "Ошибка удаления аватарки"}))

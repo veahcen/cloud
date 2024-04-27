@@ -4,13 +4,14 @@ import "./mainstyle.css"
 import NavBar from "./navbar/NavBar"
 import "./app.css"
 import Registration from "./authorization/Registration"
-import {REGISTRATION_ROUTE, LOGIN_ROUTE, DISK_ROUTE, PROFILE_ROUTE} from "../untils/consts"
+import {REGISTRATION_ROUTE, LOGIN_ROUTE, DISK_ROUTE, PROFILE_ROUTE, ADMIN_ROUTE} from "../untils/consts"
 import Authorization from "./authorization/Authorization"
 import {Context} from "../index"
 import {observer} from "mobx-react-lite"
 import {check} from "../http/user"
 import Disk from "./disk/Disk";
 import Profile from "./disk/profile/Profile";
+import AdminPanel from "./disk/profile/AdminPanel";
 
 
 const App = observer(() => {
@@ -26,6 +27,7 @@ const App = observer(() => {
                     user.setIsAuth(true)
                     user.setIsRole(data.role)
                     user.setAvatar(data.avatar)
+                    user.setSpace(data.usedSpace)
                 })
                 .finally(() => loader.hideLoader())
         } else {
@@ -61,14 +63,26 @@ const App = observer(() => {
                           />
                       </Routes>
                       :
-                      <Routes>
-                          <Route path={DISK_ROUTE}  element={<Disk />}  />
-                          <Route path={PROFILE_ROUTE}  element={<Profile />}  />
-                          <Route
-                             path="*"
-                              element={<Disk />}
-                          />
-                      </Routes>
+                      user.IsRole === 'ADMIN' ? (
+                          <Routes>
+                              <Route path={DISK_ROUTE}  element={<Disk />}  />
+                              <Route path={PROFILE_ROUTE}  element={<Profile />}  />
+                              <Route path={ADMIN_ROUTE}  element={<AdminPanel />}  />
+                              <Route
+                                  path="*"
+                                  element={<Disk />}
+                              />
+                          </Routes>
+                      ) : (
+                          <Routes>
+                              <Route path={DISK_ROUTE}  element={<Disk />}  />
+                              <Route path={PROFILE_ROUTE}  element={<Profile />}  />
+                              <Route
+                                  path="*"
+                                  element={<Disk />}
+                              />
+                          </Routes>
+                      )
                   }
               </div>
           </div>

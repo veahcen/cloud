@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react'
 import './NavBar.css'
 import Logo from '../../assets/cloud.svg'
 import {NavLink} from "react-router-dom";
-import {REGISTRATION_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, DISK_ROUTE} from "../../untils/consts";
+import {REGISTRATION_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, DISK_ROUTE, ADMIN_ROUTE} from "../../untils/consts";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import {getFiles, searchFile} from "../../http/file";
@@ -35,9 +35,11 @@ const NavBar = observer(() => {
 
     return (
             <div className='navbar'>
-                <div className='container'>
-                    <NavLink to={DISK_ROUTE}><img src={Logo} alt="облако" className='navbar__logo'/></NavLink>
-                    <h1 className='navbar__header'>CorpCloud</h1>
+                <div className='navbar__container'>
+                    <NavLink to={DISK_ROUTE} className="navbar__container-logo">
+                        <img src={Logo} alt="облако" className='navbar__logo'/>
+                        <h1 className='navbar__header'>CorpCloud</h1>
+                    </NavLink>
 
                     {user.isAuth &&
                         <input className="navbar__search"
@@ -56,12 +58,19 @@ const NavBar = observer(() => {
                             <NavLink to={REGISTRATION_ROUTE} activeclassname="active">Регистрация</NavLink>
                         </div>
                     }
+                    {user.isAuth && user.IsRole === 'ADMIN' &&
+                        <div className="navbar__panel">
+                            <NavLink to={ADMIN_ROUTE}>
+                                Панель администратора
+                            </NavLink>
+                        </div>
+                    }
                     {user.isAuth &&
                         <div className='button navbar__login' onClick={() => user.logout()}>
                             Выйти
                         </div>
                     }
-                    {user.isAuth && <NavLink to={PROFILE_ROUTE}>
+                    {user.isAuth && <NavLink to={PROFILE_ROUTE} className="navbar__avatar" >
                         <img className="navbar__avatar" src={avatar} alt="avatar"/>
                     </NavLink>}
                 </div>
