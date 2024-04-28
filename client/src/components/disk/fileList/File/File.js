@@ -7,6 +7,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../../../index";
 import {deleteFile, downloadFile} from "../../../../http/file";
 import sizeFormat from "../../../../untils/sizeFormat";
+import {API_URL} from "../../../../config";
 
 const File = observer(({filez}) => {
     const {file, user} = useContext(Context)
@@ -39,10 +40,22 @@ const File = observer(({filez}) => {
             <div className="file" onClick={() => openDirHandler(filez)}>
                 <img src={filez.type === "dir" ? folderSvg : fileSvg}
                      alt={filez.type === "dir" ? "папка" : "файл"}
+
                      className="file__img"/>
-                <div className="file__name">{filez.name}</div>
+                <div className="file__name" onClick={filez.type !== "dir" ? () => window.open(API_URL + 'api/files/open?id=' + filez._id) : undefined}>{filez.name}</div>
                 <div className="file__date">{filez.date.slice(0, 10)}</div>
                 <div className="file__size">{sizeFormat(filez.size)}</div>
+                <button className="file__btn file__downloadByLink"
+                        onClick={(e) => {
+                            if (filez.type !== 'dir') {
+                                navigator.clipboard.writeText(API_URL + 'api/files/download/name?id=' + filez._id)
+                            } else {
+                                e.stopPropagation()
+                                navigator.clipboard.writeText(API_URL + 'api/files/download/dir/name?id=' + filez._id)
+                            }
+                        }}
+                >
+                    Ссылка</button>
                 {filez.type !== 'dir' && <button className="file__btn file__download" onClick={(e) => downloadClickHandler(e)}>Скачать</button>}
                 <button onClick={(e) => deleteClickHandler(e)} className="file__btn file__delete">Удалить</button>
             </div>

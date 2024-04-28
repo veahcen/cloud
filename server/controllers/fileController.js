@@ -7,30 +7,7 @@ const ApiError = require("../error/ApiError");
 const Uuid = require('uuid')
 const archiver = require('archiver')
 const jwt = require('jsonwebtoken')
-
-// async function downloadFolder(folderId, parentPath) {
-//     const folder = await File.findById(folderId);
-//     const folderPath = fileService.getPath(folder) + 'a';
-//     // Создаем папку на сервере для скачиваемой папки
-//     fs.mkdirSync(folderPath);
-//
-//     // Получаем все файлы в папке
-//     const files = await File.find({ parent: folder._id });
-//     // Скачиваем каждый файл
-//     for (const file of files) {
-//         const filePath = path.join(folderPath, file.name);
-//         // Скачиваем файл
-//         fs.writeFileSync(filePath, file.data);
-//     }
-//
-//     // Рекурсивно обрабатываем вложенные папки
-//     const subFolders = await File.find({ parent: folder._id });
-//     for (const subFolder of subFolders) {
-//         await downloadFolder(subFolder._id, folderPath);
-//     }
-//
-//     return folderPath; // Возвращаем путь к скачанной папке
-// }
+const path = require('path');
 
 async function deleteChildren(parentId) {
     // Находим все дочерние элементы у файла с указанным parentId
@@ -87,6 +64,37 @@ const generateJwtToken = (id, email, diskSpace, usedSpace, role, avatar, name, s
         config.get("secretKey"),
         {expiresIn: '12h'}
     )
+}
+
+async function addFolderToArchive(folderPath, archive, parentFolder = '') {
+    if (fs.existsSync(folderPath)) {
+        const files = fs.readdirSync(folderPath);
+
+        for (const file of files) {
+            const filePath = path.join(folderPath, file);
+            const relativePath = path.join(parentFolder, file); // Относительный путь файла в архиве
+
+            if (fs.lstatSync(filePath).isDirectory()) {
+                // Если это папка, рекурсивно добавляем ее содержимое в архив с указанием относительного пути
+                await addFolderToArchive(filePath, archive, relativePath);
+            } else {
+                // Если это файл, добавляем его в архив с указанием относительного пути
+                archive.append(fs.createReadStream(filePath), { name: relativePath });
+            }
+        }
+    }
+}
+
+
+function isAllowedFileType(filename) {
+    // Список разрешенных расширений файлов
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'txt', 'mp4', 'webm'];
+
+    // Получаем расширение файла
+    const extension = filename.split('.').pop().toLowerCase();
+
+    // Проверяем, является ли расширение файла разрешенным
+    return allowedExtensions.includes(extension);
 }
 
 class FileController {
@@ -205,27 +213,29 @@ class FileController {
         }
     }
 
-    // async downloadFile(req, res, next) {
-    //     try {
-    //         const file = await File.findOne({_id: req.query.id, user: req.user.id});
-    //         const path = fileService.getPath(file);
-    //         if (file.type === 'dir') {
-    //             const folderPath = await downloadFolder(file._id, '/tmp'); // Начинаем скачивание с /tmp
-    //             const archive = archiver('zip');
-    //             archive.directory(folderPath, 'downloaded_folder');
-    //             archive.pipe(res);
-    //             archive.finalize();
-    //         } else {
-    //             if (fs.existsSync(path)) {
-    //                 return res.download(path, file.name);
-    //             }
-    //         }
-    //         return next(ApiError.badRequest({message: "Ошибка загрузки"}));
-    //     } catch (e) {
-    //         console.log(e);
-    //         return next(ApiError.internal({message: "Ошибка загрузки"}));
-    //     }
-    // }
+    async createArchiveAndDownload(req, res) {
+        try {
+            const file = await File.findById({_id: req.query.id});
+            const folderPath = fileService.getPath(file);
+
+            const archive = archiver('zip', {
+                zlib: { level: 9 }
+            });
+
+            // Передаем архив в response для скачивания
+            res.attachment(`${file.name}.zip`);
+            archive.pipe(res);
+
+            // Рекурсивно добавляем содержимое папки в архив
+            await addFolderToArchive(folderPath, archive);
+
+            // Финализируем архив и отправляем его клиенту
+            archive.finalize();
+        } catch (error) {
+            console.error('Ошибка:', error);
+            res.status(500).json({ message: 'Произошла ошибка при создании архива' });
+        }
+    }
 
 
     async downloadFileByLink(req, res, next) {
@@ -244,6 +254,33 @@ class FileController {
         } catch (e) {
             console.log(e);
             return next(ApiError.internal({ message: "Ошибка загрузки" }));
+        }
+    }
+
+    async openFile(req, res, next) {
+        try {
+            const file = await File.findById({ _id: req.query.id });
+            if (!file) {
+                return next(ApiError.notFound('Файл не найден'));
+            }
+
+            const path = fileService.getPath(file);
+
+            // Проверяем, является ли файл разрешенным для открытия или скачивания
+            if (isAllowedFileType(file.name)) {
+                // Если файл разрешен, отправляем его клиенту
+                if (fs.existsSync(path)) {
+                    const readStream = fs.createReadStream(path);
+                    return readStream.pipe(res);
+                }
+            } else {
+                return next(ApiError.forbidden('Доступ к данному файлу запрещен'));
+            }
+
+            return next(ApiError.badRequest({ message: "Ошибка" }));
+        } catch (e) {
+            console.log(e);
+            return next(ApiError.internal({ message: "Ошибка открытия" }));
         }
     }
 

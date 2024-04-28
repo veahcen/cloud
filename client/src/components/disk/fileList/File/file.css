@@ -39,6 +39,11 @@
     grid-column-start: 4;
 }
 
+.file:hover .file__downloadByLink {
+    grid-column-start: 5;
+    display: block;
+}
+
 .file:hover  .file__download {
     grid-column-start: 6;
     display: block;
@@ -75,7 +80,7 @@
     display: none;
 }
 
-.file-plate:hover .file-plate__buttons {
+.file-plate:hover .file-plate__buttons{
     display: flex;
 }
 
