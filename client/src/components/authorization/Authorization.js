@@ -24,7 +24,8 @@ const Authorization = observer(() => {
             user.setUser(data)
             user.setIsAuth(true)
             user.setIsRole(data.role)
-            user.Space(data.usedSpace)
+            user.setSpace(data.usedSpace)
+            user.setAvatar(data.avatar)
             setLoad(true)
         } catch (e) {
             if (e.response?.data?.message) {

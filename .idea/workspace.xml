@@ -6,11 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="ad7a2599-f629-414f-b77d-223a907118b9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/Authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/Authorization.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/authorization.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/authorization.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/registration.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/registration.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/Disk.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/Disk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/disk.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/disk.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/File/File.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/File/File.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/File/file.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/File/file.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/http/file.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/http/file.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/fileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/fileController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/fileRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/fileRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/fileList.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/fileList.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/profile/adminPanel.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/profile/adminPanel.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/profile/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/profile/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/NavBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/NavBar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/NavBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/themes.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/variables.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/variables.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,24 +48,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "javascript.nodejs.core.library.configured.version": "18.16.0",
-    "javascript.nodejs.core.library.typings.version": "18.16.0",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "D:\\Program Files (x86)\\apps\\WebStorm\\ch-0\\221.6008.13\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.16.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.16.0&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files (x86)\\apps\\WebStorm\\ch-0\\221.6008.13\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Nechaev\WebstormProjects\cloud\client\src\components" />
@@ -95,7 +106,9 @@
       <workItem from="1714135260083" duration="15344000" />
       <workItem from="1714201712314" duration="22747000" />
       <workItem from="1714302361102" duration="537000" />
-      <workItem from="1714313817595" duration="13700000" />
+      <workItem from="1714313817595" duration="13961000" />
+      <workItem from="1714390223036" duration="488000" />
+      <workItem from="1714391398304" duration="17759000" />
     </task>
     <servers />
   </component>

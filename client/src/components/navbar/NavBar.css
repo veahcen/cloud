@@ -1,5 +1,6 @@
+
 .navbar__container {
-    width: 1140px;
+    max-width: 1140px;
     height: inherit;
     display: grid;
     grid-template-columns: 1fr 3fr repeat(3, 1fr);
@@ -85,4 +86,124 @@
     width: 45px;
     height: 45px;
     border-radius: 50%;
+}
+
+.burger {
+    display: none;
+}
+
+.navbar__close {
+    display: none;
+}
+
+@media (max-width: 967px) {
+    .navbar__panel {
+        width: 165px;
+        margin-left: 0;
+    }
+    .navbar__search {
+        width: 190px;
+    }
+
+    .navbar__avatar {
+        justify-self: center;
+    }
+
+    .navbar__avatar {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px)  {
+    .navbar {
+        position: relative;
+    }
+    .navbar__container {
+        height: 260px;
+        max-width: 300px;
+        position: absolute;
+        z-index: 1;
+        right: -100%;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: var(--light-color);
+        transition: right 0.3s;
+    }
+
+    .navbar__container-flex {
+        display: flex;
+        right: 0;
+    }
+
+    .navbar__container-logo {
+        margin: 0 auto;
+        padding: 15px;
+    }
+
+    .navbar__search {
+        width: 250px;
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    .navbar__panel {
+        width: 250px;
+        padding: 15px;
+        margin: 0 auto 10px auto;
+    }
+
+    .navbar__login {
+        margin: 0 auto 10px auto;
+    }
+
+    .navbar__avatar {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .navbar__registration {
+        padding: 30px;
+    }
+
+    .navbar__login:active {
+        color: var(--hover-text);
+    }
+
+    .navbar__panel:active {
+        color: var(--hover-text);
+        background-color: var(--background-color);
+    }
+
+    .burger {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        height: 30px;
+        width: 30px;
+        background: url("../../assets/burger.svg") center center/cover no-repeat;
+        transition: color 0.3s;
+    }
+
+    .burger:active {
+        background: url("../../assets/burgerHover.svg") center center/cover no-repeat;
+    }
+
+    .navbar__close {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        display: flex;
+        outline: none;
+        border: 1px solid var(--main-color);
+        background-color: transparent;
+        transition: all 0.3s;
+    }
+
+    .navbar__close:active {
+        background-color: var(--main-color);
+        color: var(--light-color);
+    }
 }

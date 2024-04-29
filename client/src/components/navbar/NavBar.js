@@ -12,7 +12,7 @@ import {API_URL} from "../../config";
 const NavBar = observer(() => {
     const {user, file} = useContext(Context)
     const [searchTimeOut, setSearchTimeOut] = useState('')
-    console.log(user.user.avatar)
+    const [smallScreen, setSmallScreen] = useState(false)
     const avatar = user.Avatar ? `${API_URL + user.Avatar}` : avatarLog
 
 
@@ -35,12 +35,13 @@ const NavBar = observer(() => {
 
     return (
             <div className='navbar'>
-                <div className='navbar__container'>
-                    <NavLink to={DISK_ROUTE} className="navbar__container-logo">
+                <div className='burger' onClick={() => setSmallScreen(true)}/>
+                <div className={smallScreen ? 'navbar__container navbar__container-flex' : 'navbar__container'}>
+                    <button className='navbar__close' onClick={() => setSmallScreen(false)}>X</button>
+                    <NavLink to={DISK_ROUTE} className="navbar__container-logo" onClick={() => setSmallScreen(false)}>
                         <img src={Logo} alt="облако" className='navbar__logo'/>
                         <h1 className='navbar__header'>CorpCloud</h1>
                     </NavLink>
-
                     {user.isAuth &&
                         <input className="navbar__search"
                                onChange={(e) => searchHandler(e)}
@@ -50,27 +51,27 @@ const NavBar = observer(() => {
                     }
                     {!user.isAuth &&
                         <div className='button navbar__login'>
-                            <NavLink to={LOGIN_ROUTE} activeclassname="active">Войти</NavLink>
+                            <NavLink to={LOGIN_ROUTE} activeclassname="active" onClick={() => setSmallScreen(false)}>Войти</NavLink>
                         </div>
                     }
                     {!user.isAuth &&
                         <div className='button navbar__registration' >
-                            <NavLink to={REGISTRATION_ROUTE} activeclassname="active">Регистрация</NavLink>
+                            <NavLink to={REGISTRATION_ROUTE} activeclassname="active" onClick={() => setSmallScreen(false)}>Регистрация</NavLink>
                         </div>
                     }
                     {user.isAuth && user.IsRole === 'ADMIN' &&
-                        <div className="navbar__panel">
+                        <div className="navbar__panel" onClick={() => setSmallScreen(false)}>
                             <NavLink to={ADMIN_ROUTE}>
                                 Панель администратора
                             </NavLink>
                         </div>
                     }
                     {user.isAuth &&
-                        <div className='button navbar__login' onClick={() => user.logout()}>
+                        <div className='button navbar__login' onClick={() => {user.logout(); setSmallScreen(false)}}>
                             Выйти
                         </div>
                     }
-                    {user.isAuth && <NavLink to={PROFILE_ROUTE} className="navbar__avatar" >
+                    {user.isAuth && <NavLink to={PROFILE_ROUTE} className="navbar__avatar" onClick={() => setSmallScreen(false)}>
                         <img className="navbar__avatar" src={avatar} alt="avatar"/>
                     </NavLink>}
                 </div>

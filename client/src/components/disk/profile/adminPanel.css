@@ -66,6 +66,12 @@
     background-color: var(--light-color);
 }
 
-.req__btn {
+@media (max-width: 576px) {
+    .admin-panel__registration {
+        width: 320px;
+    }
 
+    .admin-panel__delete {
+        width: 320px;
+    }
 }

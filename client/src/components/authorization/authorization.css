@@ -84,3 +84,10 @@ input:focus-visible {
 .popup__form-label {
     position: relative;
 }
+
+@media (max-width: 576px) {
+    .authorization {
+        width: 330px;
+    }
+
+}

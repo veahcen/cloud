@@ -36,6 +36,14 @@ const Disk = observer (() => {
     }
 
     function uploadFilesOnServer (files) {
+        console.log(files)
+
+        const notFile = files.some(file => file.type === '')
+
+        if (notFile) {
+            alert(`Ошибка: нельзя загрузить папку`)
+            return
+        }
 
         const duplicateFile = file.getFiles.find(file => files.some(existingFile => existingFile.name === file.name))
         if (duplicateFile) {

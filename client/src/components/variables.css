@@ -14,3 +14,11 @@
     --hover-text: rgb(84, 169, 235);
     --uploader-color-text: #000000;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #1C1C1C;
+        --main-color: #009DC0;
+        --light-color: #000000;
+    }
+}

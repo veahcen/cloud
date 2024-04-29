@@ -40,12 +40,12 @@
 }
 
 .file:hover .file__downloadByLink {
-    grid-column-start: 5;
+    grid-column-start: 6;
     display: block;
 }
 
 .file:hover  .file__download {
-    grid-column-start: 6;
+    grid-column-start: 5;
     display: block;
 }
 
@@ -54,10 +54,53 @@
     display: block;
 }
 
+.file__download, .file__downloadByLink, .file__delete{
+    height: 34px;
+    width: 58px;
+    border: 2px solid var(--main-color);
+    border-radius: 37px;
+    outline: none;
+    background: no-repeat center center;
+    background-size: contain;
+}
+
+.file__download {
+    justify-self: center;
+    background-image: url("../../../../assets/download.svg");
+    transition: all 0.3s;
+}
+
+.file__downloadByLink {
+    justify-self: center;
+    background-image: url("../../../../assets/share.svg");
+    transition: all 0.3s;
+}
+
+.file__delete {
+    justify-self: center;
+    background-image: url("../../../../assets/trash.svg");
+    transition: all 0.3s;
+}
+
+.file__download:hover {
+    background-image: url("../../../../assets/downloadHover.svg");
+    border: 2px solid var(--hover-text);
+}
+
+.file__downloadByLink:hover {
+    background-image: url("../../../../assets/shareHover.svg");
+    border: 2px solid var(--hover-text);
+}
+
+.file__delete:hover {
+    background-image: url("../../../../assets/trashHover.svg");
+    border: 2px solid var(--hover-text);
+}
+
 .file-plate {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 152px;
+    height: 152px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -90,11 +133,27 @@
 }
 
 .file-plate__img-big {
-    width: 200px;
-    height: 200px;
+    width: 195px;
+    height: 195px;
 }
 
 .file-plate__name-big {
     height: 22px;
     font-size: 22px;
+}
+
+@media (max-width: 576px) {
+    .file__download, .file__downloadByLink, .file__delete{
+        height: 27px;
+        width: 41px;
+    }
+
+    .file {
+        font-size: 14px;
+    }
+
+    .file__name {
+        width: 90px;
+        overflow: hidden;
+    }
 }
