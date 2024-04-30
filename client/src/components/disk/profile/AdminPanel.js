@@ -3,6 +3,7 @@ import './adminPanel.css'
 import {observer} from "mobx-react-lite";
 import {deleteUser, getUsers, registration} from "../../../http/user";
 import {Context} from "../../../index";
+import {GENERAL_USER_NAME} from "../../navbar/generalConst";
 
 const AdminPanel = observer(() => {
     const {user} = useContext(Context)
@@ -30,6 +31,7 @@ const AdminPanel = observer(() => {
             .then(r => {
                 console.log(r)
                 setLoad(true)
+                alert("Создан новый пользователь")
             })
             .catch(e => {
                 alert(e.response.data.message)
@@ -107,6 +109,9 @@ const AdminPanel = observer(() => {
             setFormErrorAdmDelete(true)
         } else if (deleteEmail === user.user.email) {
             setDeleteEmailErrorAdm("Вы не можете себя удалить")
+            setFormErrorAdmDelete(true)
+        } else if (deleteEmail === GENERAL_USER_NAME) {
+            setDeleteEmailErrorAdm("Вы не можете удалить общее пространство")
             setFormErrorAdmDelete(true)
         } else {
             setDeleteEmailErrorAdm("")

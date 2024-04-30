@@ -8,6 +8,8 @@ import {observer} from "mobx-react-lite";
 import {getFiles, searchFile} from "../../http/file";
 import avatarLog from '../../assets/ava.svg'
 import {API_URL} from "../../config";
+import {GENERAL_USER_NAME, GENERAL_USER_PASSWORD} from "./generalConst";
+import {login} from "../../http/user";
 
 const NavBar = observer(() => {
     const {user, file} = useContext(Context)
@@ -31,6 +33,26 @@ const NavBar = observer(() => {
                 file.setFiles(data)
             })
         }
+    }
+
+    async function generalHandler() {
+        setSmallScreen(false)
+        try {
+            let dataGeneral;
+            dataGeneral = await login(GENERAL_USER_NAME, GENERAL_USER_PASSWORD)
+            console.log(dataGeneral)
+            user.setUser(dataGeneral)
+            user.setIsAuth(true)
+            user.setIsRole(dataGeneral.role)
+            user.setSpace(dataGeneral.usedSpace)
+            user.setAvatar(dataGeneral.avatar)
+            window.location.reload()
+        } catch (e) {
+            if (e.response?.data?.message) {
+                alert(e.response.data.message)
+            }
+        }
+
     }
 
     return (
@@ -58,6 +80,9 @@ const NavBar = observer(() => {
                         <div className='button navbar__registration' >
                             <NavLink to={REGISTRATION_ROUTE} activeclassname="active" onClick={() => setSmallScreen(false)}>Регистрация</NavLink>
                         </div>
+                    }
+                    {user.isAuth && user.user.email !== GENERAL_USER_NAME &&
+                        <div className="navbar__general" onClick={() => generalHandler()}>Общее пространство</div>
                     }
                     {user.isAuth && user.IsRole === 'ADMIN' &&
                         <div className="navbar__panel" onClick={() => setSmallScreen(false)}>

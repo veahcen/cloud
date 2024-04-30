@@ -6,22 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="ad7a2599-f629-414f-b77d-223a907118b9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/Authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/Authorization.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/authorization.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/authorization.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/registration.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/registration.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/disk/Disk.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/Disk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/disk/disk.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/disk.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/File/File.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/File/File.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/File/file.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/File/file.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/fileList.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/fileList.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/disk/profile/adminPanel.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/profile/adminPanel.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/disk/profile/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/profile/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/profile/AdminPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/profile/AdminPanel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/navbar/NavBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/NavBar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/navbar/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/NavBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/themes.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/variables.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/variables.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -108,7 +98,11 @@
       <workItem from="1714302361102" duration="537000" />
       <workItem from="1714313817595" duration="13961000" />
       <workItem from="1714390223036" duration="488000" />
-      <workItem from="1714391398304" duration="17759000" />
+      <workItem from="1714391398304" duration="18122000" />
+      <workItem from="1714423706883" duration="1294000" />
+      <workItem from="1714463321834" duration="2536000" />
+      <workItem from="1714466284505" duration="594000" />
+      <workItem from="1714491631598" duration="4020000" />
     </task>
     <servers />
   </component>

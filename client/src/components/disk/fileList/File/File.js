@@ -17,14 +17,19 @@ const File = observer(({filez}) => {
     const [colorScheme, setColorScheme] = useState(true)
 
     useEffect(() => {
-        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)')
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: light)');
+        setColorScheme(prefersDarkMode.matches); // Установка начальной цветовой схемы
 
-        if (prefersDarkMode.matches) {
-            setColorScheme(false)
-        }
+        const handleThemeChange = (event) => {
+            setColorScheme(event.matches);
+        };
 
-        prefersDarkMode.addEventListener("change", (evt) => {setColorScheme(evt.matches); window.location.reload()})
-    }, [])
+        prefersDarkMode.addEventListener('change', handleThemeChange);
+
+        return () => {
+            prefersDarkMode.removeEventListener('change', handleThemeChange);
+        };
+    }, []);
 
     const openDirHandler = () => {
         if (filez.type === "dir") {

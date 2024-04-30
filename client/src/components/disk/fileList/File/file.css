@@ -142,6 +142,31 @@
     font-size: 22px;
 }
 
+@media (max-width: 768px) {
+    .file .file__date {
+        grid-column-start: 3;
+    }
+
+    .file .file__size {
+        grid-column-start: 4;
+    }
+
+    .file .file__downloadByLink {
+        grid-column-start: 6;
+        display: block;
+    }
+
+    .file  .file__download {
+        grid-column-start: 5;
+        display: block;
+    }
+
+    .file .file__delete {
+        grid-column-start: 7;
+        display: block;
+    }
+}
+
 @media (max-width: 576px) {
     .file__download, .file__downloadByLink, .file__delete{
         height: 27px;
