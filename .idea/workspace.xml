@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ad7a2599-f629-414f-b77d-223a907118b9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/File/File.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/File/File.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/disk/fileList/File/file.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/fileList/File/file.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/disk/profile/AdminPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/profile/AdminPanel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/NavBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/NavBar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authorization/Authorization.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authorization/Authorization.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/disk/Disk.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/disk/Disk.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/navbar/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/NavBar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -102,7 +100,10 @@
       <workItem from="1714423706883" duration="1294000" />
       <workItem from="1714463321834" duration="2536000" />
       <workItem from="1714466284505" duration="594000" />
-      <workItem from="1714491631598" duration="4020000" />
+      <workItem from="1714491631598" duration="4550000" />
+      <workItem from="1714497541427" duration="646000" />
+      <workItem from="1714724831132" duration="119000" />
+      <workItem from="1714737722771" duration="375000" />
     </task>
     <servers />
   </component>

@@ -22,7 +22,7 @@ const Disk = observer (() => {
             file.setFiles(data)
         })
         loader.hideLoader()
-    }, [loader, file, file.getCurrentDir, sort])
+    }, [loader, file, file.getCurrentDir, sort, user, user.user.email])
 
 
 
@@ -36,7 +36,6 @@ const Disk = observer (() => {
     }
 
     function uploadFilesOnServer (files) {
-        console.log(files)
 
         const notFile = files.some(file => file.type === '')
 
@@ -55,14 +54,12 @@ const Disk = observer (() => {
             setTimeout(() => {
                 const uploaderFile = {id: Math.random().toString(36).substr(2, 9), name: item.name, progress: 0}
                 upload.addUploadFile(uploaderFile)
-                console.log(item)
                 uploadFile(item, file.getCurrentDir, (progress) => {
                     uploaderFile.progress = progress
                     upload.changeUploadFile(uploaderFile)
                 }).then(r => {
                     file.addFile(r.dbFile)
                     user.setSpace(r.usedSpace)
-                    console.log(r)
                 })
                     .catch(r => {
                         console.log(r.response.data.message.message)
@@ -74,7 +71,6 @@ const Disk = observer (() => {
 
     function fileUploadHandler(e) {
         const files = [...e.target.files]
-        console.log(files)
         uploadFilesOnServer(files)
     }
 

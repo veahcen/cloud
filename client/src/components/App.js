@@ -22,7 +22,6 @@ const App = observer(() => {
         if (token) {
             check()
                 .then((data) => {
-                    console.log(data)
                     user.setUser(data)
                     user.setIsAuth(true)
                     user.setIsRole(data.role)

@@ -17,10 +17,8 @@ const Authorization = observer(() => {
         try {
             setLoad(false)
             evt.preventDefault()
-            console.log(email, password)
             let data;
             data = await login(email, password)
-            console.log(data)
             user.setUser(data)
             user.setIsAuth(true)
             user.setIsRole(data.role)
@@ -81,7 +79,7 @@ const Authorization = observer(() => {
     useEffect(() => {
         clearValidation();
     }, []);
-    console.log(password)
+
     return (
         <div className="authorization">
             <h1 className="authorization__title">Авторизация</h1>

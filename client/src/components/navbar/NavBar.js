@@ -40,13 +40,11 @@ const NavBar = observer(() => {
         try {
             let dataGeneral;
             dataGeneral = await login(GENERAL_USER_NAME, GENERAL_USER_PASSWORD)
-            console.log(dataGeneral)
             user.setUser(dataGeneral)
             user.setIsAuth(true)
             user.setIsRole(dataGeneral.role)
             user.setSpace(dataGeneral.usedSpace)
             user.setAvatar(dataGeneral.avatar)
-            window.location.reload()
         } catch (e) {
             if (e.response?.data?.message) {
                 alert(e.response.data.message)
