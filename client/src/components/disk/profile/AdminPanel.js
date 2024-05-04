@@ -32,6 +32,10 @@ const AdminPanel = observer(() => {
                 console.log(r)
                 setLoad(true)
                 alert("Создан новый пользователь")
+                setName("")
+                setSurname("")
+                setEmailAdm("")
+                setPasswordAdm("")
             })
             .catch(e => {
                 alert(e.response.data.message)
@@ -134,6 +138,7 @@ const AdminPanel = observer(() => {
             .then(r => {
                 alert(r.data.message);
                 setLoadDel(true)
+                setDeleteEmail("")
             })
             .catch(r => {
                 alert(r.response.data.message);

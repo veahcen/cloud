@@ -12,7 +12,6 @@ const Profile = observer(() => {
     const avatar = user.Avatar ? `${API_URL + user.Avatar}` : avatarLog
     function fileUploadHandler(e) {
         const file = e.target.files[0]
-        console.log(file)
         uploadAvatar(file)
             .then(r => {user.setUser(r); user.setAvatar(r.avatar); user.setSpace(r.usedSpace)})
             .catch(e => alert(e.response.data.message))
