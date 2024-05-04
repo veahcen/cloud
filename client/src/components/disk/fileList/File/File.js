@@ -67,11 +67,11 @@ const File = observer(({filez}) => {
                         onClick={(e) => {
                             if (filez.type !== 'dir') {
                                 const downloadUrl = API_URL + 'api/files/download/name?id=' + filez._id
-                                window.prompt("Скопируйте ссылку для скачивания файла:", downloadUrl)
+                                window.prompt("Скопируйте ссылку для скачивания:", downloadUrl)
                             } else {
                                 e.stopPropagation()
                                 const downloadUrl = API_URL + 'api/files/download/dir/name?id=' + filez._id
-                                window.prompt("Скопируйте ссылку для скачивания файла:", downloadUrl)
+                                window.prompt("Скопируйте ссылку для скачивания:", downloadUrl)
                             }
                         }}
                 />
