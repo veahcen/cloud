@@ -156,7 +156,7 @@ const AdminPanel = observer(() => {
     return (
         <div className="admin-panel">
             <div className="admin-panel__registration">
-                <h1 className="admin-panel__registration__header">Регистрация</h1>
+                <h1 className="admin-panel__registration__header">Создание пользователя</h1>
                 <form className="form-registration" noValidate>
                     <label className="registration__form-label">
                         <input value={name}
