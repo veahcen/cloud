@@ -48,7 +48,6 @@ const File = observer(({filez}) => {
         file.deleteFileAct(filez._id)
         deleteFile(filez).then(r => {
             user.setSpace(r.usedSpace)
-            console.log(r)
         })
 
     }
@@ -67,10 +66,12 @@ const File = observer(({filez}) => {
                 <button className="file__btn file__downloadByLink"
                         onClick={(e) => {
                             if (filez.type !== 'dir') {
-                                navigator.clipboard.writeText(API_URL + 'api/files/download/name?id=' + filez._id)
+                                const downloadUrl = API_URL + 'api/files/download/name?id=' + filez._id
+                                window.prompt("Скопируйте ссылку для скачивания файла:", downloadUrl)
                             } else {
                                 e.stopPropagation()
-                                navigator.clipboard.writeText(API_URL + 'api/files/download/dir/name?id=' + filez._id)
+                                const downloadUrl = API_URL + 'api/files/download/dir/name?id=' + filez._id
+                                window.prompt("Скопируйте ссылку для скачивания файла:", downloadUrl)
                             }
                         }}
                 />
