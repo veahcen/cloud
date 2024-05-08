@@ -7,11 +7,9 @@ export const registration = async (email, password, name, surname) => {
 }
 
 export const deleteUser = async (email) => {
-    console.log(email)
     const response = await $authHost.delete('api/user/delete', {
         data: { email }
     })
-    console.log(response)
     return response
 }
 
